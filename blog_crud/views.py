@@ -15,7 +15,8 @@ from blog_app.models import BlogPost, Publisher
 
 @login_required
 def dummy(request):
-    render(request, "")
+
+    render(request, "blog_app/panel_login.html")
 
 class PanelView(LoginRequiredMixin, ListView):
 
@@ -71,7 +72,7 @@ class UserUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     fields = ["username", "email", "first_name", "last_name"]
 
     def get_success_url(self):
-        return reverse_lazy("user-detail", kwargs={"pk": self.request.user.id})
+        return reverse_lazy("blog_crud:user-detail", kwargs={"pk": self.request.user.id})
 
     def test_func(self):
         return self.request.user.id == int(self.kwargs['pk'])
